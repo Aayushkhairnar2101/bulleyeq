@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    env_file: .env
+    volumes: ["blueseyeq-data:/app/data"]
+  web:
+    image: node:20-alpine
+    working_dir: /workspace
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports: ["5173:5173"]
+    volumes: [".:/workspace", "/workspace/node_modules"]
+volumes:
+  blueseyeq-data:
